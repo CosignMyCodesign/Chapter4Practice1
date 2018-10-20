@@ -4452,6 +4452,35 @@ console.log(eventCount)
 
 // 3. List all Github users who submitted a pull request that was approved by Steve.
 
+let githubUsers = []
+for (let i = 0; i < githubData.length; i++) {
+  let mining = githubData[i]
+  if (mining.type === "PullRequestEvent" && mining.payload.pull_request.merged === true) {
+    console.log(mining.payload.pull_request.user.login);
+  }
+}
+
+// 4. List all repositories on which Steve had an event, and show how many events were on each one.
+
+let steveEvents = []
+// pushing each event type into an array
+githubData.forEach((event) => {
+ steveEvents.push(event.repo.id)
+})
+
+let eventCount2 = {}
+// sets property on empty obj eventCount
+steveEvents.forEach((i) =>{
+ // below is counting the events
+ eventCount2[i] = (eventCount2[i] || 0) + 1
+})
+
+console.log("Here are the repo ids and values:")
+console.table(eventCount2)
+
+// 5. Which event had the most number of commits?
+
+
 
 
 
